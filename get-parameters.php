@@ -68,9 +68,9 @@
         //$result = $result['SecretString'];
    //     print($result);
         //$result = json_decode($result, true);
-        $un = $result['username'];
-        $pw = $result['password'];
-        $db = 'countries';
+        $un = $result['capstone/userName'];
+        $pw = $result['capstone/databasePassword'];
+        $db = $result['capstone/databaseName'];
 
         }
         catch (Exception $e) {
