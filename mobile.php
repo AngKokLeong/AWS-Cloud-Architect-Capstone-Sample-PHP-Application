@@ -5,6 +5,7 @@
         $sql = "select name, mobilephones from countrydata_final;";
         //$conn = new mysqli($_SESSION['ep'], $_SESSION['un'], $_SESSION['pw'], $_SESSION['db']);
         $conn = new mysqli($ep, $un, $pw, $db);
+
         if ($conn->connect_error) {
             error_log('Connection error: ' . $conn->connect_error);
             var_dump('Connection error: ' . $conn->connect_error);

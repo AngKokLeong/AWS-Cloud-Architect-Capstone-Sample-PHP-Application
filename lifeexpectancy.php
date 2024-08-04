@@ -4,6 +4,7 @@
         //SQL to get birthrate and life expectancy
         $sql = "select name, birthrate, lifeexpectancy from countrydata_final;";
         $conn = new mysqli($ep, $un, $pw, $db);
+
         if ($conn->connect_error) {
             error_log('Connection error: ' . $conn->connect_error);
             var_dump('Connection error: ' . $conn->connect_error);
