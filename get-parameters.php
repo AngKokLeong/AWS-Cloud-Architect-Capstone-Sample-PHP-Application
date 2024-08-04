@@ -1,9 +1,10 @@
 <?php
         // Retrieve settings from Parameter Store
         error_log('Retrieving settings');
-        //require 'aws-autoloader.php';
-        require 'AWSSDK/aws.phar'; //do not need to use aws-autoloader.php due to the packaged phar automatically registers a class autoloader
+        require 'aws/aws-autoloader.php';
 
+        use Aws\SecretsManager\SecretsManagerClient;
+        use Aws\Exception\AwsException;
         //$az = file_get_contents('http://169.254.169.254/latest/meta-data/placement/availability-zone');
 
         $ch = curl_init();
@@ -37,41 +38,31 @@
 
         $region = substr($az, 0, -1);
         
+          // Create a Secrets Manager client
+        $secretsManagerClient = new SecretsManagerClient([
+          'region' => 'us-east-1', // Replace with your desired region
+          'version' => 'latest'
+        ]);
+
+        // Secret names from capstone-project-template.yaml
+        $databaseUserNameSecret = 'capstone/databaseUsername';
+        $databaseNameSecret = 'capstone/databaseName';
+        $databasePasswordSecret = 'capstone/databasePassword';
+        $auroraEndpointSecret = 'capstone/databaseClusterEndpoint';
+
+
         try {
-         
-          #fetch the endpoint ep
-          $rds_client = new  Aws\Rds\RdsClient([
-            'version' => 'latest',
-            'region'  => $region
-          ]);
-          $dbresult = $rds_client->describeDBClusters();
-          $dbresult = $dbresult['DBClusters'][0]['Endpoint'];
-          $ep = $dbresult;
+             // Retrieve secrets
+          $databaseUserName = getSecretValue($secretsManagerClient, $databaseUserNameSecret);
+          $databaseName = getSecretValue($secretsManagerClient, $databaseNameSecret);
+          $databasePassword = getSecretValue($secretsManagerClient, $databasePasswordSecret);
+          $auroraEndpoint = getSecretValue($secretsManagerClient, $auroraEndpointSecret);
 
-          $secrets_client = new Aws\SecretsManager\SecretsManagerClient([
-            'version' => 'latest',
-            'region'  => $region
-          ]);
 
-          //fetch secrets for the endpoint
-          $secretresults = $secrets_client->listSecrets(
-              array(
-                  [
-                    'Key'=>['name'],
-                    'Values'=>['capstone!']
-                  ]
-              )
-            );
-            $result = $secrets_client->getSecretValue([
-              'SecretId' => $secretresults['SecretList'][0]['Name'],
-          ]);
-          $result = $result['SecretString'];
-          $result = json_decode($result, true);
-
-          $un = $result['databaseUsername'];
-          $pw = $result['databasePassword'];
-          $db = $result['databaseName'];
-
+          $un = $databaseUserName;
+          $pw = $databasePassword;
+          $db = $databaseName;
+          $ep = $auroraEndpoint;
         }
         catch (Exception $e) {
           $ep = '';
@@ -81,4 +72,26 @@
         }
       error_log('Settings are: ' . $ep. " / " . $db . " / " . $un . " / " . $pw);
       //echo " Check your Database settings ";
+      
+      /**
+       * Retrieves the secret value from AWS Secrets Manager
+       *
+       * @param SecretsManagerClient $client
+       * @param string $secretName
+       * @return string
+       */
+      function getSecretValue(SecretsManagerClient $client, string $secretName)
+      {
+          $secretValue = '';
+          try {
+              $result = $client->getSecretValue([
+                  'SecretId' => $secretName,
+              ]);
+              $secretValue = $result['SecretString'];
+          } catch (AwsException $e) {
+              // Handle exceptions
+              echo "Error retrieving secret '" . $secretName . "': " . $e->getMessage() . PHP_EOL;
+          }
+          return $secretValue;
+      }
 ?>
