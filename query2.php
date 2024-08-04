@@ -1,28 +1,28 @@
 <html>
      <body>
           <?php
-               include 'get-parameters.php';
+               require 'get-parameters.php';
                
                $_pick = filter_input(INPUT_POST, 'selection', FILTER_SANITIZE_STRING);
                
                echo $_pick;
                switch ($_pick) {
                     case "Q1":
-                         include 'mobile.php';
+                         require 'mobile.php';
                          break;
                     case "Q2":
-                         include 'population.php';
+                         require 'population.php';
                          break;
                     case "Q3":
-                         include 'lifeexpectancy.php';
+                         require 'lifeexpectancy.php';
                          break;
 
                     case "Q4":
-                         include 'gdp.php';
+                         require 'gdp.php';
                          break;
 
                     case "Q5":
-                         include 'mortality.php';
+                         require 'mortality.php';
                          break;
                }
           ?>
