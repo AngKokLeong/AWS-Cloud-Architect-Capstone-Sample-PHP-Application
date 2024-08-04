@@ -1,9 +1,9 @@
 <a href="query.php">Pick another query</a>
 
  <?php
-
+        include 'get-parameters.php';
         //Query for childhood mortality rate
-        $sql = "select name, mortalityunder5 from countrydata_final;";
+        $sql = "SELECT name, mortalityunder5 FROM countrydata_final;";
         //$conn = new mysqli($_SESSION['ep'], $_SESSION['un'], $_SESSION['pw'], $_SESSION['db']);
         $conn = new mysqli($ep, $un, $pw, $db);
 
