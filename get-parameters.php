@@ -81,4 +81,4 @@
         }
       error_log('Settings are: ' . $ep. " / " . $db . " / " . $un . " / " . $pw);
       //echo " Check your Database settings ";
-      ?>
+?>
