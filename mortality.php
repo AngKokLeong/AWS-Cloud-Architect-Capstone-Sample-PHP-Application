@@ -4,7 +4,7 @@
 
         //Query for childhood mortality rate
         $sql = "select name, mortalityunder5 from countrydata_final;";
-#        $conn = new mysqli($_SESSION['ep'], $_SESSION['un'], $_SESSION['pw'], $_SESSION['db']);
+        //$conn = new mysqli($_SESSION['ep'], $_SESSION['un'], $_SESSION['pw'], $_SESSION['db']);
         $conn = new mysqli($ep, $un, $pw, $db);
 
         if ($conn->connect_error) {
@@ -25,15 +25,17 @@
               while($row = $result->fetch_assoc()) {
               //echo '<p>';
 
-              echo '<tr>';
-              echo '<td>';
-              echo $row["name"];
-              echo '&nbsp';
-              echo '<td>';
-              echo $row["mortalityunder5"];
-              echo '&nbsp';
-              echo '<br>';
-              echo '</tr>';
+                echo '<tr>';
+                    echo '<td>';
+                        echo $row["name"];
+                        echo '&nbsp';
+                    echo '</td>';
+                    echo '<td>';
+                        echo $row["mortalityunder5"];
+                        echo '&nbsp';
+                    echo '</td>';
+                echo '<br>';
+                echo '</tr>';
               }
               echo '</table>';
           }
