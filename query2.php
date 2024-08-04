@@ -4,8 +4,7 @@
                require 'get-parameters.php';
                
                $_pick = filter_input(INPUT_POST, 'selection', FILTER_SANITIZE_STRING);
-               
-               echo $_pick;
+
                switch ($_pick) {
                     case "Q1":
                          require 'mobile.php';
