@@ -38,43 +38,40 @@
         $region = substr($az, 0, -1);
         
         try {
-          $secrets_client = new Aws\SecretsManager\SecretsManagerClient([
-            'version' => 'latest',
-            'region'  => $region
-          ]);
+         
           #fetch the endpoint ep
           $rds_client = new  Aws\Rds\RdsClient([
             'version' => 'latest',
             'region'  => $region
           ]);
-          $dbresult = $rds_client->describeDBInstances();
-          $dbresult = $dbresult['DBInstances'][0]['Endpoint']['Address'];
-          echo $dbresult;
+          $dbresult = $rds_client->describeDBClusters();
+          $dbresult = $dbresult['DBClusters'][0]['Endpoint'];
           $ep = $dbresult;
-          //echo $ep;
-          //
+
+          $secrets_client = new Aws\SecretsManager\SecretsManagerClient([
+            'version' => 'latest',
+            'region'  => $region
+          ]);
+
           //fetch secrets for the endpoint
-          $secretresults = $secrets_client->listSecrets(array(
-            ['Key'=>['name'],
-            'Values'=>['rds!']
-            ])
+          $secretresults = $secrets_client->listSecrets(
+              array(
+                  [
+                    'Key'=>['name'],
+                    'Values'=>['capstone!']
+                  ]
+              )
             );
             $result = $secrets_client->getSecretValue([
               'SecretId' => $secretresults['SecretList'][0]['Name'],
           ]);
           $result = $result['SecretString'];
           $result = json_decode($result, true);
-    //      echo $result;
 
-          //$result = $result['SecretString'];
-    //     print($result);
-          //$result = json_decode($result, true);
-          $un = $result['username'];
-          $pw = $result['password'];
-          $db = $result['capstone/databaseName'];
-          echo $un;
-          echo $pw;
-          echo $db;
+          $un = $result['databaseUsername'];
+          $pw = $result['databasePassword'];
+          $db = $result['databaseName'];
+
         }
         catch (Exception $e) {
           $ep = '';
