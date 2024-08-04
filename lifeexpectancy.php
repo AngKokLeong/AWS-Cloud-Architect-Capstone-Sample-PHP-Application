@@ -23,18 +23,21 @@
               while($row = $result->fetch_assoc()) {
               //echo '<p>';
 
-              echo '<tr>';
-              echo '<td>';
-              echo $row["name"];
-              echo '&nbsp';
-              echo '<td>';
-              echo $row["birthrate"];
-              echo '&nbsp';
-              echo '<td>';
-              echo $row["lifeexpectancy"];
-              echo '&nbsp';
-              echo '<br';
-              echo '</tr>';
+                echo '<tr>';
+                    echo '<td>';
+                        echo $row["name"];
+                        echo '&nbsp';
+                    echo '</td>';
+                    echo '<td>';
+                        echo $row["birthrate"];
+                        echo '&nbsp';
+                    echo '</td>';
+                    echo '<td>';
+                        echo $row["lifeexpectancy"];
+                        echo '&nbsp';
+                    echo '</td>';
+                    echo '<br';
+                echo '</tr>';
               }
               echo '</table>';
           }
