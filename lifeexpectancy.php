@@ -2,7 +2,7 @@
 
  <?php
         //SQL to get birthrate and life expectancy
-        $sql = "select name, birthrate, lifeexpectancy from countrydata_final;";
+        $sql = "SELECT name, birthrate, lifeexpectancy FROM countrydata_final;";
         $conn = new mysqli($ep, $un, $pw, $db);
 
         if ($conn->connect_error) {

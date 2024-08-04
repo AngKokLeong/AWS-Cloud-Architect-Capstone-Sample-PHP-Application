@@ -7,6 +7,7 @@
         $conn = new mysqli($ep, $un, $pw, $db);
 
         if ($conn->connect_error) {
+            echo "sql connection error";
             error_log('Connection error: ' . $conn->connect_error);
             var_dump('Connection error: ' . $conn->connect_error);
         }
