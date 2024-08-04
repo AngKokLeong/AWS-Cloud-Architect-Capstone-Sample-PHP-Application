@@ -13,8 +13,8 @@
         }
         else {
 
-          $result = $conn->query($sql);
-          if ($result->num_rows > 0) {
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
               //echo "success";
               echo '<table style="width: 80%">';
               echo '<tr>';
@@ -38,7 +38,9 @@
                 echo '</tr>';
               }
               echo '</table>';
-          }
+            } else {
+                echo "There is no records";
+            }
         }
 
     ?>

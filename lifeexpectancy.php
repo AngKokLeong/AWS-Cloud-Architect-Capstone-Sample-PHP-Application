@@ -41,6 +41,8 @@
                 echo '</tr>';
               }
               echo '</table>';
+          }else{
+            echo 'There is no record at this moment.';
           }
         }
     ?>
