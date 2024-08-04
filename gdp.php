@@ -2,7 +2,7 @@
 
  <?php
         //Query to get the GDP
-        $sql = "select name, gdp from countrydata_final;";
+        $sql = "select name, GDP from countrydata_final;";
         //$conn = new mysqli($_SESSION['ep'], $_SESSION['un'], $_SESSION['pw'], $_SESSION['db']);
         $conn = new mysqli($ep, $un, $pw, $db);
 
