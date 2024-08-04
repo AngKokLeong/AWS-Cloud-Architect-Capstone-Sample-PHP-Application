@@ -4,7 +4,7 @@
 
         //Query for the population data
         $sql = "select name, population, populationurban from countrydata_final;";
-#        $conn = new mysqli($_SESSION['ep'], $_SESSION['un'], $_SESSION['pw'], $_SESSION['db']);
+        //$conn = new mysqli($_SESSION['ep'], $_SESSION['un'], $_SESSION['pw'], $_SESSION['db']);
         $conn = new mysqli($ep, $un, $pw, $db);
 
         if ($conn->connect_error) {
@@ -17,26 +17,29 @@
               //echo "success";
               echo '<table style="width: 80%">';
               echo '<tr>';
-              echo '<th style="text-align:left">Country Name</th>';
-              echo '<th style="text-align:left">Population</th>';
-              echo '<th style="text-align:left">Urban Population</th>';
+                echo '<th style="text-align:left">Country Name</th>';
+                echo '<th style="text-align:left">Population</th>';
+                echo '<th style="text-align:left">Urban Population</th>';
               echo '</tr>';
 
               while($row = $result->fetch_assoc()) {
-              //echo '<p>';
+                //echo '<p>';
 
-              echo '<tr>';
-              //echo 'Country_Name  Mobile_phone_subscribers  Mortality_under5';
-              echo '<td>';
-              echo $row["name"];
-              echo '&nbsp';
-              echo '<td>';
-              echo $row["population"];
-              echo '&nbsp';
-              echo '<td>';
-              echo $row["populationurban"];
-              echo '<br';
-              echo '</tr>';
+                echo '<tr>';
+                //echo 'Country_Name  Mobile_phone_subscribers  Mortality_under5';
+                    echo '<td>';
+                        echo $row["name"];
+                        echo '&nbsp';
+                    echo '</td>';
+                    echo '<td>';
+                        echo $row["population"];
+                        echo '&nbsp';
+                    echo '</td>';
+                    echo '<td>';
+                        echo $row["populationurban"];
+                        echo '<br';
+                    echo '</td>';
+                echo '</tr>';
               }
               echo '</table>';
           }
