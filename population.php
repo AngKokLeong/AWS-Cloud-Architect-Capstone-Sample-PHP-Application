@@ -1,12 +1,12 @@
 <a href="query.php">Pick another query</a>
 
  <?php
-
+        include 'get-parameters.php';
         //Query for the population data
-        $sql = "select name, population, populationurban from countrydata_final;";
+        $sql = "SELECT name, population, populationurban FROM countrydata_final;";
         //$conn = new mysqli($_SESSION['ep'], $_SESSION['un'], $_SESSION['pw'], $_SESSION['db']);
         $conn = new mysqli($ep, $un, $pw, $db);
-    
+
         if ($conn->connect_error) {
             error_log('Connection error: ' . $conn->connect_error);
             var_dump('Connection error: ' . $conn->connect_error);
