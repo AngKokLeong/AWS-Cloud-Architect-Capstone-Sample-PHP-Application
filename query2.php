@@ -2,18 +2,17 @@
      <body>
           <?php
                include 'get-parameters.php';
-               $_pick = $_POST['selection'];
-
+               
+               $_pick = filter_input(INPUT_POST, 'selection', FILTER_SANITIZE_STRING);
+               
+               echo $_pick;
                switch ($_pick) {
                     case "Q1":
-
                          include 'mobile.php';
                          break;
-
                     case "Q2":
                          include 'population.php';
                          break;
-
                     case "Q3":
                          include 'lifeexpectancy.php';
                          break;
