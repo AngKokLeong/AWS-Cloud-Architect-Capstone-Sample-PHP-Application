@@ -45,10 +45,10 @@
         ]);
 
         // Secret names from capstone-project-template.yaml
-        $databaseUserNameSecret = 'capstone/databaseUsername';
-        $databaseNameSecret = 'capstone/databaseName';
-        $databasePasswordSecret = 'capstone/databasePassword';
-        $auroraEndpointSecret = 'capstone/databaseClusterEndpoint';
+        $databaseUserNameSecret = 'capstoneproject/databaseUsername';
+        $databaseNameSecret = 'capstoneproject/databaseName';
+        $databasePasswordSecret = 'capstoneproject/databasePassword';
+        $auroraEndpointSecret = 'capstoneproject/databaseClusterEndpoint';
 
 
         try {
